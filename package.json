@@ -1,0 +1,26 @@
+{
+  "name": "MyReport",
+  "version": "1.0.0",
+  "description": "An app to report powered by Bluemix",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Diego Zamora Rodríguez",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.9.0",
+    "ejs": "^2.2.4",
+    "express": "^4.9.8",
+    "geocoder": "^0.2.2",
+    "mongoose": "^3.8.17",
+    "node-restful": "^0.1.17",
+    "request": "^2.53.0",
+    "twilio": "^1.11.0",
+    "underscore": "^1.8.2"
+  },
+  "engines": {
+    "node": "0.10.*"
+  },
+  "repository": {}
+}

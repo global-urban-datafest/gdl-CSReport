@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>Mapa | CS Report</title>
+    <style media="screen">
+      *{
+        padding:0px;
+        margin:0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"  style="width: 100%; height: 100%;"></div>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script type="text/javascript">
+      var locations = [];
+      $(document).ready(function() {
+       //Consumir el API
+        $.getJSON("reporte.json", function(json) {
+            for (var i = 0; i < json.length; i++) {
+              locations [i] = [json[i].tipo, json[i].latitud, json[i].longitud, json[i].fecha];
+            }
+            //Render del mapa
+          var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(20.67,-103.33),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var marker, i;
+
+        for (var i = 0; i < locations.length; i++) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent("Reporte: " + locations[i][0] + "<br>Fecha: " + locations[i][3]);
+              infowindow.open(map, marker);
+            }
+          })(marker, i));
+        }
+        });
+      });
+    </script>
+  </body>
+</html>
